@@ -9,12 +9,9 @@ export class Snake {
     public parent: Container;
     public apple: Apple;
     public direction: string;
-    public gameField:Config;
     public app:PIXI.Application;
 
-
-
-        constructor(parent: Container, apple: Apple, app:PIXI.Application) {
+    constructor(parent: Container, apple: Apple, app:PIXI.Application) {
         this.parent = parent;
         this.app=app;
         this.partList.push(new SnakePart(true));

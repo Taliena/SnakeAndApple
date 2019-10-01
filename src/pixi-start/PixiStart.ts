@@ -1,4 +1,3 @@
-import {type} from "os";
 import Graphics = PIXI.Graphics;
 import {Keyboard} from "../common/Keyboard";
 import {Key} from "../common/Key";
@@ -8,10 +7,8 @@ import {Config} from "../common/Config";
 
 export class PixiStart {
     public app: PIXI.Application;
-    //public cat:PIXI.Sprite;
     public rectangle: Graphics;
     public left: Keyboard;
-    public x: number;
     public stepX: number = 0;
     public stepY: number = 0;
     public apple: Apple;
@@ -32,10 +29,6 @@ export class PixiStart {
         this.blackSquare();
         this.width=document.getElementsByTagName('canvas')[0].width;
         this.height=document.getElementsByTagName('canvas')[0].height;
-
-
-
-
     }
 
     public blackSquare() {
@@ -50,25 +43,19 @@ export class PixiStart {
         PIXI.loader
             .add("/assets/images/apple.png")
             .load(this.setup.bind(this));
-
-
     }
 
 
 
     public setup() {
-        //this.cat = new PIXI.Sprite(PIXI.loader.resources["/assets/images/cat.png"].texture);
         this.apple = new Apple();
         this.apple.generateNewPosition();
-        //this.app.stage.addChild(this.cat);
         this.rectangle = new Graphics();
         this.rectangle.lineStyle(4, 0xFF3300, 1);
         this.rectangle.beginFill(0x66CCFF);
         this.rectangle.drawRect(60, 0, 64, 64);
         this.rectangle.endFill();
         this.snake = new Snake(this.app.stage, this.apple, this.app);
-
-        //this.app.stage.addChild(this.rectangle);
         this.app.stage.addChild(this.apple);
         this.app.ticker.add(delta => this.gameLoop(2));
 
@@ -106,7 +93,6 @@ export class PixiStart {
             this.stepX = 0;
             this.snake.move("up");
             this.direction = "up";
-
         };
         up.release = () => {
             if (!down.isDown && this.stepX === 0) {
@@ -116,17 +102,9 @@ export class PixiStart {
 
         //Right
         right.press = () => {
-
             this.snake.move("right");
             this.direction = "right";
-
-
         };
-        /* right.release = () => {
-             if (!left.isDown&&this.stepY===0) {
-                 this.stepX = 0;
-             }
-         };*/
 
         //Down
         down.press = () => {
@@ -134,16 +112,7 @@ export class PixiStart {
             this.stepX = 0;
             this.snake.move("down");
             this.direction = "down";
-
         };
-        /* down.release = () => {
-             if (!up.isDown && this.stepX === 0) {
-                 this.stepY = 0;
-             }
-
-         };*/
-
-
     }
 
     public keyboard(value) {
@@ -189,10 +158,8 @@ export class PixiStart {
             window.removeEventListener("keydown", downListener);
             window.removeEventListener("keyup", upListener);
         };
-
         return key;
     }
-
 
     public gameLoop(delta) {
         if (this.itterationCounter == 10) {
